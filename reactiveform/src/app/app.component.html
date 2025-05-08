@@ -1,0 +1,190 @@
+<div>
+  <form #userForm="ngForm">
+    <!-- First Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input
+        matInput
+        id="firstName"
+        name="firstName"
+        required
+      />
+    </mat-form-field>
+
+    <!-- Last Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        id="lastName"
+        name="lastName"
+        required
+      />
+    </mat-form-field>
+
+    <!-- Organization -->
+    <mat-form-field appearance="fill">
+      <mat-label>Organization</mat-label>
+      <mat-select
+        id="organization"
+        name="organization"
+        required
+      >
+        <mat-option value="vhiTech">Virdhi Tech Lab</mat-option>
+        <mat-option value="Bluetick">Blue Tick Coders</mat-option>
+        <mat-option value="zoho">Zoho</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Date -->
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        placeholder="mm-dd-yyyy"
+        [matDatepicker]="picker"
+        id="date"
+        name="date"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Gender -->
+    <div class="genderClass">
+      <mat-label>Gender :</mat-label>
+      <mat-radio-group name="gender" required>
+        <mat-radio-button value="male" >Male</mat-radio-button>
+        <mat-radio-button value="female" >Female</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <!-- Mobile Number -->
+    <mat-form-field appearance="fill">
+      <mat-label>Mobile Number</mat-label>
+      <input
+        matInput
+        id="mobileNo"
+        name="mobileNo"
+        required
+      />
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        id="email"
+        name="email"
+        email
+        required
+      />
+    </mat-form-field>
+
+    <!-- Pincode -->
+    <mat-form-field appearance="fill">
+      <mat-label>Pincode</mat-label>
+      <input
+        matInput
+        id="pincode"
+        name="pincode"
+        required
+      />
+    </mat-form-field>
+
+    <!-- Communication Address -->
+    <div class="addressClass">
+      <mat-form-field appearance="fill">
+        <mat-label>Communication Address</mat-label>
+        <textarea
+          matInput
+          id="comAddress"
+          name="comAddress"
+          required
+        ></textarea>
+      </mat-form-field>
+
+      <!-- Permanent Address -->
+      <mat-form-field appearance="fill">
+        <mat-label>Permanent Address</mat-label>
+        <textarea
+          matInput
+          id="permanentAddress"
+          name="permanentAddress"
+          required
+        ></textarea>
+      </mat-form-field>
+
+      <!-- Checkbox for same address -->
+      <div class="checkBoxId">
+        <mat-checkbox 
+        name="sameAddress" 
+        >
+          Same as Communication Address
+        </mat-checkbox>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="btnId">
+      <button mat-raised-button color="primary" type="submit" class="submitBtn">
+        SUBMIT
+      </button>
+      <button mat-raised-button color="warn" type="reset" class="resetBtn">
+        RESET
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Display Table -->
+ <!--  *ngIf="submittedData.length > 0" -->
+<div style="margin: 60px 60px; height: 200px">
+  <h3>Submitted Data</h3>
+  <table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Organization</th>
+        <th>Gender</th>
+        <th>Mobile No</th>
+        <th>Email</th>
+        <th>Communication Address</th>
+        <th>Permanent Address</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let user of submittedData; let i = index">
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.organization }}</td>
+        <td>{{ user.gender }}</td>
+        <td>{{ user.mobileNo }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.comAddress }}</td>
+        <td>{{ user.permanentAddress }}</td>
+        <td >
+          <button
+          mat-button
+          style="color: green; cursor: pointer"
+          >
+            <mat-icon>edit</mat-icon
+          ></button>
+          <button
+          mat-button
+          color="warn"
+          style="color: red; cursor: pointer"
+          >
+          <mat-icon>delete</mat-icon
+          >
+          </button>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
