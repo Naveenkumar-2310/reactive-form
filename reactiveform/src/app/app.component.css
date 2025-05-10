@@ -20,10 +20,6 @@ form {
   background-color: white !important;
 }
 
-::ng-deep .mat-text-field {
-  padding: 0;
-}
-
 input[type="text"],
 input[type="email"],
 input[type="date"],
@@ -32,6 +28,7 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+  padding: 0px;
 }
 
 textarea {
@@ -59,7 +56,9 @@ button[type="submit"] {
   color: white;
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 }
+
 button[type="reset"] {
   background-color: red;
   color: white;
@@ -67,6 +66,22 @@ button[type="reset"] {
   border: none;
 }
 
-.mdc-text-field .mat-mdc-text-field-wrapper {
-  padding: 0px 7px;
+::ng-deep .mdc-text-field{
+  padding: 0px 4px !important;
+}
+.mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper {
+  padding: 0 !important;
+}
+
+.mat-mdc-form-field-error-wrapper,.mat-mdc-form-field-error-wrapper div{
+  padding: 0px !important;
+}
+::ng-deep .mat-mdc-form-field-error-wrapper{
+  padding: 0px !important;
+
+}
+.mat-mdc-form-field-error{
+  font-size: 14px;
+  padding: 0px 8px;
 }

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +18,7 @@ const MaterialComponents = [MatButtonModule,MatInputModule,MatFormFieldModule,Ma
   imports: [
     CommonModule,
     MaterialComponents,
+    ReactiveFormsModule
   ],
   exports : [MaterialComponents]
 })

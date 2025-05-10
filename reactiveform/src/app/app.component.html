@@ -1,96 +1,119 @@
 <div>
-  <form #userForm="ngForm">
+  <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
     <!-- First Name -->
     <mat-form-field appearance="fill">
       <mat-label>First Name</mat-label>
-      <input
-        matInput
-        id="firstName"
-        name="firstName"
-        required
-      />
+      <input matInput id="firstName" formControlName="firstName" />
+      <mat-error
+        *ngIf="
+          reactiveForm.get('firstName').invalid &&
+          reactiveForm.get('firstName').touched
+        "
+      >
+        *First Name is required Field
+      </mat-error>
     </mat-form-field>
 
     <!-- Last Name -->
     <mat-form-field appearance="fill">
       <mat-label>Last Name</mat-label>
-      <input
-        matInput
-        id="lastName"
-        name="lastName"
-        required
-      />
+      <input matInput id="lastName" formControlName="lastName" />
+      <mat-error
+        *ngIf="
+          reactiveForm.get('lastName').invalid &&
+          reactiveForm.get('lastName').touched
+        "
+      >
+        *Last Name is required Field
+      </mat-error>
     </mat-form-field>
 
     <!-- Organization -->
     <mat-form-field appearance="fill">
       <mat-label>Organization</mat-label>
-      <mat-select
-        id="organization"
-        name="organization"
-        required
-      >
+      <mat-select id="organization" formControlName="organization">
         <mat-option value="vhiTech">Virdhi Tech Lab</mat-option>
         <mat-option value="Bluetick">Blue Tick Coders</mat-option>
         <mat-option value="zoho">Zoho</mat-option>
       </mat-select>
+      <mat-error
+        *ngIf="
+          reactiveForm.get('organization').invalid &&
+          reactiveForm.get('organization').touched
+        "
+      >
+        *Organization is required Field
+      </mat-error>
     </mat-form-field>
 
     <!-- Date -->
     <mat-form-field appearance="fill">
+      <mat-label>Enter Date</mat-label>
       <input
         matInput
-        placeholder="mm-dd-yyyy"
         [matDatepicker]="picker"
         id="date"
-        name="date"
-        required
+        formControlName="date"
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <mat-error
+        *ngIf="
+          reactiveForm.get('date').invalid && reactiveForm.get('date').touched
+        "
+      >
+        *Select the Date
+      </mat-error>
     </mat-form-field>
 
     <!-- Gender -->
     <div class="genderClass">
       <mat-label>Gender :</mat-label>
-      <mat-radio-group name="gender" required>
-        <mat-radio-button value="male" >Male</mat-radio-button>
-        <mat-radio-button value="female" >Female</mat-radio-button>
+      <mat-radio-group name="gender" formControlName="gender">
+        <mat-radio-button value="male">Male</mat-radio-button>
+        <mat-radio-button value="female">Female</mat-radio-button>
       </mat-radio-group>
     </div>
 
     <!-- Mobile Number -->
     <mat-form-field appearance="fill">
       <mat-label>Mobile Number</mat-label>
-      <input
-        matInput
-        id="mobileNo"
-        name="mobileNo"
-        required
-      />
+      <input matInput id="mobileNo" formControlName="mobileNo" />
+      <mat-error
+        *ngIf="
+          reactiveForm.get('mobileNo').invalid &&
+          reactiveForm.get('mobileNo').touched
+        "
+      >
+        *Mobile Number is required Field
+      </mat-error>
     </mat-form-field>
 
     <!-- Email -->
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input
-        matInput
-        id="email"
-        name="email"
-        email
-        required
-      />
+      <input matInput id="email" formControlName="email" email />
+      <mat-error
+        *ngIf="
+          reactiveForm.get('email').invalid && reactiveForm.get('email').touched
+        "
+      >
+        *Email is required field
+      </mat-error>
     </mat-form-field>
 
     <!-- Pincode -->
     <mat-form-field appearance="fill">
       <mat-label>Pincode</mat-label>
-      <input
-        matInput
-        id="pincode"
-        name="pincode"
-        required
-      />
+      <input matInput id="pincode" formControlName="pincode" />
+      <mat-error
+        *ngIf="
+          reactiveForm.get('pincode').invalid &&
+          reactiveForm.get('pincode').touched
+        "
+      >
+        *Pincode is required field
+      </mat-error>
     </mat-form-field>
 
     <!-- Communication Address -->
@@ -100,9 +123,19 @@
         <textarea
           matInput
           id="comAddress"
-          name="comAddress"
-          required
+          formControlName="comAddress"
+          (ngModelChange)="
+            handleAddressChange($event)
+          "
         ></textarea>
+        <mat-error
+          *ngIf="
+            reactiveForm.get('comAddress').invalid &&
+            reactiveForm.get('comAddress').touched
+          "
+        >
+          *Communication Address is required field
+        </mat-error>
       </mat-form-field>
 
       <!-- Permanent Address -->
@@ -111,25 +144,36 @@
         <textarea
           matInput
           id="permanentAddress"
-          name="permanentAddress"
-          required
+          formControlName="permanentAddress"
         ></textarea>
+        <mat-error
+          *ngIf="
+            reactiveForm.get('permanentAddress').invalid &&
+            reactiveForm.get('permanentAddress').touched
+          "
+        >
+          *Permanent Address is required field
+        </mat-error>
       </mat-form-field>
 
       <!-- Checkbox for same address -->
       <div class="checkBoxId">
-        <mat-checkbox 
-        name="sameAddress" 
+        <mat-checkbox
+          formControlName="sameAddress"
+          (change)="handleAddressChange($event)"
         >
           Same as Communication Address
         </mat-checkbox>
+        <mat-error *ngIf="comAddressError"
+          >*Please Enter Communication Address</mat-error
+        >
       </div>
     </div>
 
     <!-- Submit -->
     <div class="btnId">
-      <button mat-raised-button color="primary" type="submit" class="submitBtn">
-        SUBMIT
+      <button mat-raised-button type="submit" class="submitBtn">
+        {{ editIndex != null ? "UPDATE" : "SUBMIT" }}
       </button>
       <button mat-raised-button color="warn" type="reset" class="resetBtn">
         RESET
@@ -139,8 +183,8 @@
 </div>
 
 <!-- Display Table -->
- <!--  *ngIf="submittedData.length > 0" -->
-<div style="margin: 60px 60px; height: 200px">
+
+<div style="margin: 60px 60px;" *ngIf="submittedData.length > 0">
   <h3>Submitted Data</h3>
   <table border="1" cellpadding="10" cellspacing="0">
     <thead>
@@ -157,7 +201,6 @@
       </tr>
     </thead>
     <tbody>
-
       <tr *ngFor="let user of submittedData; let i = index">
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
@@ -167,22 +210,23 @@
         <td>{{ user.email }}</td>
         <td>{{ user.comAddress }}</td>
         <td>{{ user.permanentAddress }}</td>
-        <td >
+        <td>
           <button
-          mat-button
-          style="color: green; cursor: pointer"
+            mat-button
+            style="color: green; cursor: pointer;"
+            (click)="onEdit(i)"
           >
-            <mat-icon>edit</mat-icon
-          ></button>
-          <button
-          mat-button
-          color="warn"
-          style="color: red; cursor: pointer"
-          >
-          <mat-icon>delete</mat-icon
-          >
+          <mat-icon>edit</mat-icon>
           </button>
-          
+          <button
+            mat-button
+            color="warn"
+            style="color: red; cursor: pointer"
+            (click)="onDelete(i)"
+            [disabled]="editIndex !== null"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
       </tr>
     </tbody>
